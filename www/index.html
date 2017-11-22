@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Escoge idioma</title>
+        
+    <style>html{background: #007ee5;}</style>
+    <script>
+        if(!navigator.onLine){
+            window.location.href ='offline.html';
+        }
+    </script>
+    <script>
+        
+        addEventListener('offline',()=>{
+            window.location.href = 'offline.html';
+        });
+        
+        if(location.search)
+            localStorage.clear();
+
+        function revisarIdioma(idioma){
+            var lang = localStorage.getItem('lang') || idioma;
+            
+            lang === 'es'&& window.location.replace('espaniol.html');
+            lang === 'en'&& window.location.replace('ingles.html');
+        }
+        
+        revisarIdioma();
+    </script>
+    
+    <style>
+        @font-face{
+            font-family: 'Lato';
+            src: url('css/fonts/Lato-Light.ttf');
+        }
+        body{
+            color : white;
+            text-align: center;
+            font-family: 'Lato', sans-serif;
+            text-shadow: 0 2px 5px rgba(0,0,0,.5);
+        }
+        a{
+            color: white;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid rgba(255,255,255,.2);
+        }
+        body > img:first-child{
+            width: 60px;
+            margin-top: 4em;
+            animation: balanceo 2s infinite;
+        }
+        body > img[src="img/utb_logo_pequeño.png"]{
+            width: 100px;
+            position: absolute;
+            bottom: 2%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        h1{
+            font-weight: 500;
+            margin-bottom: 1em;
+            }
+        a img{
+            margin-right: .5em;
+            display: inline-block;
+            vertical-align: middle;
+            animation: zacudir 3s infinite;
+        }
+        @keyframes balanceo {
+            50%{ transform: rotate(-2deg); }
+            100% { transform: rotate(0); }
+        }
+        input{
+            margin-top: 2.5em;
+        }
+    </style>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />    
+</head>
+
+<body>
+    <img src="img/logo.png"/>
+    <h1>Aquapp 2</h1>
+
+    <a lang="es"><img src="img/iconos/colombia.png"/>Español</a>
+    <a lang="en"><img src="img/iconos/usa.png"/>English</a>
+    
+     <input type="checkbox" id="recordar" checked>
+     <label for="recordar">Recordar/Remember</label>
+
+    <img src="img/utb_logo_pequeño.png" />
+    
+    <script>
+        
+        document
+        .querySelector('body')
+        .addEventListener('click', e =>{
+
+            let lang = e.target.getAttribute('lang');
+            if(!lang) return;
+            
+            if(document.getElementById('recordar').checked)
+                localStorage.setItem('lang', lang);
+
+            revisarIdioma(lang);
+            
+        });
+    </script>
+</body>
+
+</html>
